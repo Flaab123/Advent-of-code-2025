@@ -1,5 +1,6 @@
 SCROLL_INPUT_FILE = "input.txt"
 
+
 def main():
     scroll = read_scroll_input(SCROLL_INPUT_FILE)
     math_problems = process_instructions(scroll)
@@ -25,10 +26,12 @@ class MathProblem:
             case _:
                 return 99999999999999999999999999999
 
+
 def read_scroll_input(path: str) -> list[list[str]]:
     with open(path, "r") as file:
         scroll = [line.split() for line in file.readlines()]
     return scroll
+
 
 def process_instructions(scroll: list[list[str]]) -> list[MathProblem]:
     scroll_problems = len(scroll[0])
@@ -39,8 +42,10 @@ def process_instructions(scroll: list[list[str]]) -> list[MathProblem]:
         math_problems.append(MathProblem(number_strings=numbers, operation=operation))
     return math_problems
 
+
 def solve_math_problems(math_problems: list[MathProblem]) -> list[int]:
     return [math_problem.solve_problem() for math_problem in math_problems]
+
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,6 @@
 SCROLL_INPUT_FILE = "input.txt"
 
+
 def main():
     scroll = read_scroll_input(SCROLL_INPUT_FILE)
     math_problems = process_instructions(scroll)
@@ -24,7 +25,7 @@ class MathProblem:
                 return start
             case _:
                 return 99999999999999999999999999999
-            
+
     @staticmethod
     def parse_numbers(number_strings: list[str]) -> list[int]:
         longest_number = max([len(num) for num in number_strings])
@@ -35,7 +36,7 @@ class MathProblem:
 
             for orig_num in number_strings:
                 try:
-                    digit = orig_num[-1-r_to_l_idx]
+                    digit = orig_num[-1 - r_to_l_idx]
                     if digit == " ":
                         digit = ""
                 except IndexError:
@@ -43,11 +44,13 @@ class MathProblem:
                 new_number += digit
             new_numbers.append(new_number)
         return [int(num) for num in new_numbers]
-        
+
+
 def read_scroll_input(path: str) -> list[str]:
     with open(path, "r") as file:
         scroll = [line.strip("\n") for line in file.readlines()]
     return scroll
+
 
 def process_instructions(scroll: list[str]) -> list[MathProblem]:
     operations = scroll[-1]
@@ -63,10 +66,19 @@ def process_instructions(scroll: list[str]) -> list[MathProblem]:
 
     math_problems = []
     for problem_idx in range(scroll_problems):
-        numbers = [get_characters_from_line(line, problem_idx, operations_indexes, white_spaces_to_skip) for line in scroll[:-1]]
+        numbers = [
+            get_characters_from_line(
+                line=line,
+                problem_number=problem_idx,
+                operations_indexes=operations_indexes,
+                skip_indexes=white_spaces_to_skip,
+            )
+            for line in scroll[:-1]
+        ]
         operation = operations[problem_idx]
         math_problems.append(MathProblem(number_strings=numbers, operation=operation))
     return math_problems
+
 
 def get_characters_from_line(line: str, problem_number: int, operations_indexes: list[int], skip_indexes: list[int]):
     idx_to_get = operations_indexes[problem_number]
@@ -81,6 +93,7 @@ def get_characters_from_line(line: str, problem_number: int, operations_indexes:
 
 def solve_math_problems(math_problems: list[MathProblem]) -> list[int]:
     return [math_problem.solve_problem() for math_problem in math_problems]
+
 
 if __name__ == "__main__":
     main()

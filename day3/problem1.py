@@ -15,21 +15,21 @@ def main():
     return
 
 
-
-def get_joltage(number:str ) -> int:
+def get_joltage(number: str) -> int:
     highest_nr = 0
     higher_nr_idx = 0
     for idx, char in enumerate(number[:-1]):
-        if int(char) >  highest_nr:
+        if int(char) > highest_nr:
             highest_nr = int(char)
             higher_nr_idx = idx
-    
-    second_highest_nr = 0
-    for char in number[higher_nr_idx+1:]:
-        if int(char) >  second_highest_nr:
-            second_highest_nr =  int(char)
 
-    return int(str(highest_nr)+str(second_highest_nr))
+    second_highest_nr = 0
+    for char in number[higher_nr_idx + 1 :]:
+        if int(char) > second_highest_nr:
+            second_highest_nr = int(char)
+
+    return int(str(highest_nr) + str(second_highest_nr))
+
 
 if __name__ == "__main__":
     main()
